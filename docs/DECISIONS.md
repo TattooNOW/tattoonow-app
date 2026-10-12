@@ -15,6 +15,32 @@ it is cheap to do and expensive to notice.
   chrome, never features. There is no second implementation of a screen.
 - **D-10 — ONE dashboard on web and app.** Same screens, same URLs.
 
+## 🚨 Two access points, forced by hardware (2026-10-12)
+
+**Tap to Pay on iPhone is iPhone-only.** An iPad has no Tap to Pay reading
+capability at all (Stripe, SwipeSimple; floor iPhone XS or later). That is a
+hardware fact, not an SDK or entitlement choice, and it splits this app in two:
+
+| | **A1 — the counter** | **A2 — the artist's day** |
+|---|---|---|
+| device | the shop's iPad, shared | their own iPhone |
+| sign-in | PIN quick-switch on the enrolled device | their own account |
+| card | PAX D135 over Bluetooth | Tap to Pay, no hardware |
+| push | none (shared device) | APNs, personal |
+
+🚨 **Still ONE binary.** Two modes selected by device and sign-in, never two
+App Store listings.
+
+Two consequences for the code here:
+
+1. **A shared device cannot receive per-person push, and does not need to.**
+   Do not build a notification path for A1.
+2. **Attribution is still per person on A1.** A PIN resolves to a named human
+   for the ticket line, the tip and the commission. The D135 has no display, so
+   the tip is taken on the iPad and lands as an artist-attributed line, which
+   is the only way it reaches commission. A device-scoped sign-in is not an
+   anonymous sale.
+
 ## The two Apple rules that apply at once
 
 - **3.1.3(e)** — counter charges and deposits are real-world goods and
@@ -82,12 +108,14 @@ and **PIN is entered on the iPad**.
 
 ## Open before the Register ships
 
-- **O-1 — which North SDK.** The 13 Swift files in
-  `tattoonow-business-suite/ios/` target North's **PAX Mobile SDK**, but
-  **Tap to Pay lives in North's separate Gateway iOS SDK** (which also
-  drives the D135). That choice comes before any more Swift. Ask the North
-  rep. Those legacy files have **never been compiled**; they are reference,
-  and HANDS-OFF Rule 1 makes that repo read-only.
+- **O-1 — which North SDK.** 🚨 **Narrowed 2026-10-12.** Both access points
+  must be served, and North's **Gateway iOS SDK is recorded as driving the
+  D135 as well as Tap to Pay** — so the question is now *"confirm Gateway
+  covers both"* rather than an open choice, and the 13 Swift files in
+  `tattoonow-business-suite/ios/` (which target the **PAX Mobile SDK**) are
+  the wrong target twice over. They have **never been compiled**; they are
+  reference only, and HANDS-OFF Rule 1 makes that repo read-only. Still
+  confirm with the North rep before writing payment code.
 - **O-5 — the gate key is undecided.** The admin mockup calls the Register
   tab `money`; REGISTER-APP-INTEGRATION calls it `payments`. 🚨 **Neither
   is declared in `lib/entitlements.ts`**, so today it is gated by nothing.
