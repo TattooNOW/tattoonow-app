@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- APNs. `development` in Debug, flipped by the Release config. -->
+	<key>aps-environment</key>
+	<string>$(TN_APNS_ENVIRONMENT)</string>
+
+	<!-- Keychain. 🚨 The EPX key lives HERE and nowhere else: device-only,
+	     entered per iPad, excluded from backups. It can originate charges
+	     against the merchant account, so it is never sent to our server,
+	     never written to a file, and never committed. The API rejects an
+	     attempt to store it rather than silently ignoring it. -->
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.tattoonow.app</string>
+	</array>
+
+	<!-- Tap to Pay on iPhone. 🚨 Requires an entitlement Apple grants on
+	     request; file it early (P0.5) because the review is not instant. -->
+	<key>com.apple.developer.proximity-reader.payment.acceptance</key>
+	<true/>
+</dict>
+</plist>

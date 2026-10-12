@@ -1,0 +1,43 @@
+# XcodeGen spec. `xcodegen generate` writes TattooNOW.xcodeproj from this.
+# The .xcodeproj is gitignored on purpose -- see README.
+name: TattooNOW
+options:
+  bundleIdPrefix: com.tattoonow
+  deploymentTarget:
+    iOS: "16.4"
+  createIntermediateGroups: true
+
+# 16.4 is the floor because that is where iOS gained web push and the
+# modern WKWebView behaviours the member half relies on. It is NOT the
+# kiosk floor -- the lobby iPads are a different surface and are pinned
+# separately in tattoonow-sites (browserslist safari 15.6).
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+
+targets:
+  TattooNOW:
+    type: application
+    platform: iOS
+    sources:
+      - path: TattooNOW
+    configFiles:
+      Debug: Config/Debug.xcconfig
+      Release: Config/Release.xcconfig
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tattoonow.app
+        INFOPLIST_FILE: TattooNOW/Info.plist
+        CODE_SIGN_ENTITLEMENTS: TattooNOW/TattooNOW.entitlements
+        TARGETED_DEVICE_FAMILY: "1,2"   # iPhone + iPad; the Register runs on the iPad
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+    info:
+      path: TattooNOW/Info.plist

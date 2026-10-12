@@ -1,0 +1,12 @@
+// Debug build: points at the DEV tier.
+//
+// 🚨 `//` starts a comment in an xcconfig, even inside a value, so a URL
+// cannot be written literally. `$()` is an empty expansion that separates
+// the two slashes; the built value is still `https://admin...`.
+// Writing it plainly truncates the host to `https:` with no error.
+TN_WEB_ORIGIN = https:/$()/admin.tattoodirectories.com
+
+// Dev talks to the APNs sandbox.
+TN_APNS_ENVIRONMENT = development
+
+PRODUCT_NAME = TattooNOW (Dev)

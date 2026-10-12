@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- 🚨 Required-reason API manifest. Its ABSENCE is G-17 in the plan:
+	     an app that reads UserDefaults without declaring a reason here is
+	     rejected at upload, not at review, so it blocks the submission
+	     rather than failing it slowly.
+
+	     Keep this in step with the code. PushRegistrar is the only reader
+	     today (it caches the APNs token); adding a file that touches
+	     UserDefaults, file timestamps, disk space or system boot time
+	     means adding its category below. -->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<!-- CA92.1: read/write only this app's own data. -->
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- No third-party SDK tracks anyone through this binary. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+
+	<!-- 🚨 UNFILLED ON PURPOSE, and it blocks submission (O-9).
+	     The nutrition labels have to describe what the WEB app collects as
+	     well, because the member half IS the web app, so this is filled
+	     from /legal/app-privacy once that notice has had the legal review
+	     it has not had yet. Do not guess the entries to clear a warning. -->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+</dict>
+</plist>

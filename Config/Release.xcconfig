@@ -1,0 +1,8 @@
+// Release build: points at PROD.
+//
+// See Debug.xcconfig for why the `$()` is in the URL. Do not "tidy" it.
+TN_WEB_ORIGIN = https:/$()/admin.tattoonow.com
+
+TN_APNS_ENVIRONMENT = production
+
+PRODUCT_NAME = TattooNOW

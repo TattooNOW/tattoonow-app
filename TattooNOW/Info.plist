@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>TattooNOW</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+
+	<!-- Set from Config/*.xcconfig so a build cannot point at the wrong
+	     tier by forgetting a flag. Read by AppConfig. -->
+	<key>TNWebOrigin</key>
+	<string>$(TN_WEB_ORIGIN)</string>
+	<key>TNAPNSEnvironment</key>
+	<string>$(TN_APNS_ENVIRONMENT)</string>
+
+	<!-- The Register pairs with a PAX D135 over Bluetooth. The D135 has no
+	     display, so the iPad takes the tip and the PIN; see docs/DECISIONS.
+	     Both strings are shown verbatim to the person, so they say what we
+	     actually do with it. -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>TattooNOW connects to your card reader at the counter.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take photos of your work to add to your gallery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose photos of your work to add to your gallery.</string>
+
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+</dict>
+</plist>
